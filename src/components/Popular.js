@@ -1,4 +1,6 @@
 import React from 'react';
+import Cards from './movie/Cards'
+
 
 class Popular extends React.Component{
 
@@ -12,7 +14,9 @@ class Popular extends React.Component{
 
     render(){
         return(
-            <div>Popular</div>
+            <div>Popular
+                <Cards/>
+            </div>
         );
     }
 }

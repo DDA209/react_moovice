@@ -19,9 +19,45 @@ const apiKey = 'ec9a9b00d4df33fd1448a81ad129214f';
 const apiToken = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlYzlhOWIwMGQ0ZGYzM2ZkMTQ0OGE4MWFkMTI5MjE0ZiIsInN1YiI6IjVmMjJjZmVlMzUwMzk4MDAzM2UzMTg1MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.TRnPMfD3Jhc7MNSTRDtHSyjcIyf1yqxt3kK-Q01T3fs';
 // https://api.themoviedb.org/3/movie/550?api_key=ec9a9b00d4df33fd1448a81ad129214f
 const popUrl = `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${apiKey}`;
+const defaulCDPic = 'https://upload.wikimedia.org/wikipedia/commons/3/30/DVD.png';
+
 
 class App extends React.Component{
+
+  constructor(props){
+    super(props);
+
+    this.state = {
+      none: ''
+    }
+  }
+
+
   render(){
+
+    let moviePicture = '';
+    let movieTitle = '';
+    let movieDescription=  '';
+
+    // const popApi = popUrl
+
+    console.log('app#render fetch(popUrl)', );
+
+    // fetch(popUrl).then( res => res.json() ).then( json => {})
+    let check = fetch(popUrl, request)
+        .then( res => res.json() )
+        .then( json => { 
+          console.log('app#render/fetch json', json)
+        })
+      console.log('app#render check json', check)
+      
+
+    // console.log('app#render fetch(popUrl)', res.json());
+
+  
+
+    // console.log('URL API popular', popUrl); // test OK
+
     return(
       <Router>
         <div>
