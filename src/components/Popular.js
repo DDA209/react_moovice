@@ -1,5 +1,11 @@
 import React from 'react';
-import Cards from './movie/Cards'
+import Cards from './movie/Cards';
+import Picture from './images/placeholder.png'
+
+const apiKey = 'ec9a9b00d4df33fd1448a81ad129214f';
+const popUrl = `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${apiKey}`;
+// const popUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}`;
+const imgHttpUrl = "https://image.tmdb.org/t/p/w300/";
 
 
 class Popular extends React.Component{
@@ -8,14 +14,58 @@ class Popular extends React.Component{
         super(props);
 
         this.state = {
-            movies: [],
+            movies: [], // liste des films
         }
+
+        this.componentDidMount = this.componentDidMount.bind(this);
+
     }
 
+    componentDidMount(){
+
+        fetch(popUrl) // request
+        .then( (res) => {return res.json() // réponse binaire transformée en type json (= type promesse)
+        }) //chaînage
+        .then( (json) => { // ce .then attend toujours une fonction avec json en paramètre
+        //   console.log('components/popular#componentDidMount json.results', json.results);
+          this.setState({
+              movies: json.results
+            })
+        //   console.log('components/popular#componentDidMount this.state.movies)', this.state.movies);
+        //   console.log('components/popular#componentDidMount json', json);
+        });
+    }
+    
+
+
     render(){
+        console.log('components/popular#render popUrl', popUrl);
         return(
-            <div>Popular
-                <Cards/>
+            <div className="row">
+
+                {this.state.movies.map( (movie, key) => {
+                    console.log('components/popular#render/map movie.id', movie.id)
+                    let picture = imgHttpUrl + movie.poster_path;
+
+                    if (movie.poster_path.length === 0){
+                        picture = Picture;
+                        console.log('default picture', picture)
+                    }
+
+                    return (
+                        <Cards
+                            key={movie.id}
+                            title={movie.title}
+                            description={movie.overview}
+                            picture={picture}
+
+                        >
+                        </Cards>
+                    )
+
+                })
+                }
+                
             </div>
         );
     }
