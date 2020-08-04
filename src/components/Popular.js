@@ -1,11 +1,13 @@
 import React from 'react';
+
 import Cards from './movie/Cards';
-import Picture from './images/placeholder.png'
+// import Picture from './images/placeholder.png';
+import Config from '../Config';
 
 const apiKey = 'ec9a9b00d4df33fd1448a81ad129214f';
-const popUrl = `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${apiKey}`;
+const popUrl = `${Config.apiRoot}discover/movie?sort_by=popularity.desc&api_key=${apiKey}`;
 // const popUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}`;
-const imgHttpUrl = "https://image.tmdb.org/t/p/w300/";
+// const imgHttpUrl = "https://image.tmdb.org/t/p/w300/";
 
 
 class Popular extends React.Component{
@@ -31,7 +33,7 @@ class Popular extends React.Component{
           this.setState({
               movies: json.results
             })
-        //   console.log('components/popular#componentDidMount this.state.movies)', this.state.movies);
+          console.log('components/popular#componentDidMount this.state.movies)', this.state.movies);
         //   console.log('components/popular#componentDidMount json', json);
         });
     }
@@ -39,16 +41,18 @@ class Popular extends React.Component{
 
 
     render(){
-        console.log('components/popular#render popUrl', popUrl);
+        // console.log('components/popular#render popUrl', popUrl);
+        console.log('components/popular#render this.state.movies', this.state.movies)
+
         return(
             <div className="row">
 
                 {this.state.movies.map( (movie, key) => {
                     console.log('components/popular#render/map movie.id', movie.id)
-                    let picture = imgHttpUrl + movie.poster_path;
+                    let picture = Config.imgHttpUrl + movie.poster_path;
 
                     if (movie.poster_path.length === 0){
-                        picture = Picture;
+                        picture = Config.Picture;
                         console.log('default picture', picture)
                     }
 
