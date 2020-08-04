@@ -1,11 +1,13 @@
 import React from 'react';
 
 import Cards from './movie/Cards';
-// import Picture from './images/placeholder.png';
+
 import Config from '../Config';
 
-const apiKey = 'ec9a9b00d4df33fd1448a81ad129214f';
-const popUrl = `${Config.apiRoot}discover/movie?sort_by=popularity.desc&api_key=${apiKey}`;
+// import Picture from './images/placeholder.png';
+
+// const apiKey = 'ec9a9b00d4df33fd1448a81ad129214f';
+const popUrl = `${Config.apiRoot}discover/movie?sort_by=popularity.desc&api_key=${Config.apiKey}`;
 // const popUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}`;
 // const imgHttpUrl = "https://image.tmdb.org/t/p/w300/";
 
@@ -33,11 +35,11 @@ class Popular extends React.Component{
           this.setState({
               movies: json.results
             })
-          console.log('components/popular#componentDidMount this.state.movies)', this.state.movies);
+        //   console.log('components/popular#componentDidMount this.state.movies)', this.state.movies);
         //   console.log('components/popular#componentDidMount json', json);
         });
     }
-    
+
 
 
     render(){
@@ -46,6 +48,7 @@ class Popular extends React.Component{
 
         return(
             <div className="row">
+                
 
                 {this.state.movies.map( (movie, key) => {
                     console.log('components/popular#render/map movie.id', movie.id)
@@ -57,14 +60,16 @@ class Popular extends React.Component{
                     }
 
                     return (
-                        <Cards
-                            key={movie.id}
-                            title={movie.title}
-                            description={movie.overview}
-                            picture={picture}
+                        <div className="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2" key={movie.id}>
 
-                        >
-                        </Cards>
+                            <Cards
+                                
+                                title={movie.title}
+                                description={movie.overview}
+                                picture={picture}
+                            >
+                            </Cards>
+                        </div>
                     )
 
                 })

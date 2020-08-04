@@ -41,39 +41,49 @@ class PopularBattle extends React.Component{
 
 
     render(){
-        // console.log('components/popular#render popUrl', popUrl);
-        console.log('components/popular#render this.state.movies', this.state.movies)
-        // destructuration de this.state.movies en movies[*] :
-        const { movies } = this.state;
-        const movieLeft = movies[this.state.currentPage * 2 - 2];//
-        const movieRight = movies[this.state.currentPage * 2 - 1];//
-        
-        console.log('movieLeft',movieLeft);
-        console.log('movieRight',movieRight);
-        // console.log('movieLeft.title',movieLeft.title);
-        // console.log('movieRight.title',movieRight.title);
-        
-        return(
-            <div className="row">
 
-                <div className="col-6 col-md4" >
-                    <Cards
-                        // title={movieLeft.title}
-                        // picture={Config.imgHttpUrl + movieLeft.poster_path}
-                    >
-                    </Cards>
+        if(this.state.movies.length === 0){
+            return (
+                <div>
+                    <h2>Chargement en cours</h2>
                 </div>
-                <div className="col-6 col-md4" >
-                    <Cards
-                        // title={movieRight.title}
-                        // picture={Config.imgHttpUrl + movieRight.poster_path}
-                    >
-                    </Cards>
-                </div>
+            )
+        }
+        
+        let i = this.state.currentPage * 2 - 2;
+        let j = i++;
+        let movie;
+        let picture = Config.imgHttpUrl + movie.poster_path;
 
-            </div>
-        );
+        for (i = 0; i < j; i++) {
+
+            if (j > 20){
+                i = 0
+                j = 1
+            }
+            console.log('components/popular#render()=>{} movie', movie)
+
+            movie = this.state.movies[i]
+            
+            if (movie.poster_path.length === 0){
+                picture = Config.Picture;
+                console.log('default picture', picture)
+            }
+            
+            return (
+                <Cards
+                    key={movie.id}
+                    title={movie.title}
+                    picture={picture}
+                >
+                </Cards>
+            )
+
+        }
     }
 }
+            
+    
+
 
 export default PopularBattle;
